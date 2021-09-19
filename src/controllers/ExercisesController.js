@@ -17,7 +17,6 @@ class ExercisesController {
 
     //Creates a new object in the database
     static create(req, res) {
-        console.log(req.body);
         const { title, description, img, leftColor, rightColor } = req.body
         const SQL = 'INSERT INTO exercise (title, description, img, leftColor, rightColor) VALUES (?,?,?,?,?)'
         const params = [title, description, img, leftColor, rightColor]
@@ -50,22 +49,22 @@ class ExercisesController {
 
     //Update an specific object in the database
     static update(req, res){
-        const { title, description, img, leftColor, rightColor, id } = req.body
-        const SQL = 'UPDATE `exercise` SET `title`=?, `description`=?, `img`=?, `leftColor`=?, `rightColor`=? WHERE `id`=?;'
+        const id=req.params.id;
+        const { title, description, img, leftColor, rightColor } = req.body
+        const SQL = "UPDATE exercise SET title=?, description=?, img=?, leftColor=?, rightColor=? WHERE id=?"
         const params = [title, description, img, leftColor, rightColor, id]
         db.run(SQL, params, function (err) {
             if (err){
                 res.status(500).json({'error': err.message})
                 return;
             }
-            req.body.id = this.lastID
             res.json({
                 'exercise': req.body
             })
         })
     }
 
-    //Delete an objecct form the database
+    //Delete an object form the database
     static delete(req, res){
         var sql = "delete from exercise where id = ?"
 

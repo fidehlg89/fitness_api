@@ -9,7 +9,7 @@ router.post('/exercises', exercisesController.create);
 
 router.get('/exercises/:id', exercisesController.read);
 
-router.put('/exercises/update/:id', exercisesController.update);
+router.put('/exercises/:id', exercisesController.update);
 
 router.delete('/exercises/:id', exercisesController.delete);
 
